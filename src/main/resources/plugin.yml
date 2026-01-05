@@ -1,0 +1,30 @@
+name: KerioFly
+version: 1.0.0
+main: com.kerio.keriofly.KerioFly
+author: Kerio
+api-version: '1.21'
+folia-supported: true
+softdepend: [PlaceholderAPI]
+
+commands:
+  kfly:
+    description: 飛行指令
+    usage: /kfly [add|set|reduce|reset|ticket|true|false] <player> [time]
+    aliases: [fly, keriofly]
+
+permissions:
+  keriofly.use:
+    description: 使用飛行功能
+    default: true
+  keriofly.admin:
+    description: 管理飛行時間
+    default: op
+  keriofly.ticket.give:
+    description: 給予飛行票券
+    default: op
+  keriofly.ticket.gui:
+    description: 開啟票券 GUI
+    default: op
+  keriofly.unlimited:
+    description: 無限飛行時間
+    default: false

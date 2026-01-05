@@ -1,0 +1,80 @@
+# 訊息設定
+# 支援顏色代碼: &、§ 或 Hex色碼 (&#RRGGBB)
+# 支援變數: {player}, {time}, {cost}, {points}
+
+prefix: "&#00FFFF[KerioFly] &r"
+
+# 飛行相關訊息
+fly-enabled: "&a飛行模式已開啟！剩餘時間: &e{time}"
+fly-disabled: "&c飛行模式已關閉！"
+no-time: "&c你的飛行時間已用完！"
+fly-auto-disabled: "&#FFD700飛行模式已在登入時自動關閉"
+
+# 管理員指令訊息
+time-added: "&a已為 &e{player} &a增加 &e{time} &a的飛行時間！"
+time-set: "&a已設置 &e{player} &a的飛行時間為 &e{time}&a！"
+time-reduced: "&a已為 &e{player} &a減少 &e{time} &a的飛行時間！"
+time-reset: "&a已重置 &e{player} &a的飛行時間！"
+
+# 經濟系統訊息
+money-exchange-disabled: "&c金錢兌換功能未啟用！"
+points-exchange-disabled: "&c飛行點數兌換功能未啟用！"
+not-enough-money: "&c你的金錢不足！需要 &e${cost}&c，你只有 &e${balance}"
+not-enough-points: "&c你的飛行點數不足！需要 &e{points} &c點，你只有 &e{balance} &c點"
+purchase-success: "&a成功購買 &e{time} &a的飛行時間！花費: &e{cost}"
+points-added: "&a已為 &e{player} &a增加 &e{points} &a飛行點數！"
+points-set: "&a已設置 &e{player} &a的飛行點數為 &e{points}&a！"
+points-reduced: "&a已為 &e{player} &a減少 &e{points} &a飛行點數！"
+points-info: "&e你目前有 &a{points} &e飛行點數 (可兌換 {time} 飛行時間)"
+
+# 票券相關訊息
+ticket-received: "&a你獲得了 &e{time} &a的飛行時間！"
+ticket-given: "&a已給予 &e{player} &a{amount} 張 &e{ticket} &a票券！"
+ticket-created: "&a成功創建票券 &e{name}&a！時間: &e{time}"
+ticket-removed: "&a已刪除票券 &e{name}&a！"
+ticket-edited: "&a已編輯票券 &e{name}&a！"
+ticket-not-found: "&c找不到票券 &e{name}&c！"
+ticket-already-exists: "&c票券 &e{name} &c已存在！"
+ticket-list: "&e現有票券: &a{tickets}"
+
+# 設定訊息
+config-reloaded: "&#00FF00配置文件已重新載入！"
+money-cost-set: "&a金錢兌換費用已設置為 &e${cost} &a每小時"
+money-exchange-toggled: "&a金錢兌換功能已{status}"
+points-exchange-toggled: "&a飛行點數兌換功能已{status}"
+enabled: "&#00FF00啟用"
+disabled: "&#FF0000停用"
+
+# 錯誤訊息
+no-permission: "&c你沒有權限使用此功能！"
+player-not-found: "&c找不到該玩家！"
+invalid-time: "&c無效的時間格式！請使用: 1d, 1h, 1m, 1s"
+invalid-amount: "&c無效的數量！請輸入正整數"
+invalid-number: "&c無效的數字！"
+usage: "&c用法: /kfly [指令]"
+vault-not-found: "&c未找到 Vault 插件，無法使用金錢系統！"
+
+# 指令說明
+help:
+  - "&#00FFFF▬▬▬▬▬▬▬▬▬▬▬▬ KerioFly 指令說明 ▬▬▬▬▬▬▬▬▬▬▬▬"
+  - "&e/kfly &7- 切換飛行模式"
+  - "&e/kfly true/false &7- 開啟/關閉飛行"
+  - "&e/kfly buy <時數> &7- 使用點數購買飛行時間"
+  - "&e/kfly points &7- 查看飛行點數"
+  - ""
+  - "&#FFD700管理員指令:"
+  - "&e/kfly add/set/reduce/reset <玩家> [時間] &7- 管理飛行時間"
+  - "&e/kfly points add/set/reduce <玩家> <點數> &7- 管理飛行點數"
+  - "&e/kfly config moneycost <金額> &7- 設置金錢兌換費用"
+  - "&e/kfly config money <true/false> &7- 開關金錢兌換"
+  - "&e/kfly config points <true/false> &7- 開關點數兌換"
+  - "&e/kfly reload &7- 重新載入配置"
+  - ""
+  - "&#FF69B4票券系統:"
+  - "&e/kfly ticket create <名稱> <時間> &7- 創建票券"
+  - "&e/kfly ticket remove <名稱> &7- 刪除票券"
+  - "&e/kfly ticket edit <名稱> &7- 編輯票券樣式"
+  - "&e/kfly ticket give <名稱> <玩家> [數量] &7- 給予票券"
+  - "&e/kfly ticket open &7- 打開票券GUI"
+  - "&e/kfly ticket list &7- 查看所有票券"
+  - "&#00FFFF▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"

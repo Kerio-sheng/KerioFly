@@ -1,0 +1,55 @@
+# KerioFly Configuration File
+# 作者: Kerio
+# 支援: Spigot/Paper/Folia 1.21+
+
+# 資料庫設定（支援跨服）
+database:
+  # 是否啟用資料庫（啟用後支援跨服同步）
+  enabled: true
+  host: localhost
+  port: 3306
+  database: minecraft
+  username: root
+  password: password
+  # 資料表前綴
+  table-prefix: "keriofly_"
+
+# 插件設定
+settings:
+  # 當玩家關閉飛行模式時，是否繼續扣除時間
+  consume-time-when-disabled: false
+  
+  # 當玩家未移動時，是否繼續扣除時間
+  consume-time-when-not-moving: false
+  
+  # 當玩家未飛行時（在地面上），是否繼續扣除時間
+  consume-time-when-not-flying: false
+  
+  # 時間消耗間隔（秒）
+  consume-interval-seconds: 1
+  
+  # 當玩家進入遊戲時是否自動關閉飛行
+  disable-fly-on-join: false
+  
+  # 當玩家進入戰鬥時是否關閉飛行
+  disable-fly-on-combat: true
+  
+  # 當玩家受到傷害時是否關閉飛行
+  disable-fly-on-damage: false
+  
+  # 是否允許創造模式下使用插件飛行
+  allow-fly-in-creative: false
+
+# 經濟系統設定
+economy:
+  # 是否啟用金錢兌換飛行時間功能
+  money-exchange:
+    enabled: false
+    # 每小時飛行時間所需金額
+    cost-per-hour: 1000.0
+  
+  # 是否啟用飛行點數系統
+  points-exchange:
+    enabled: true
+    # 1點飛行點數 = 1小時飛行時間（固定比例）
+    # 玩家可以使用 /kfly buy <hours> 購買飛行時間

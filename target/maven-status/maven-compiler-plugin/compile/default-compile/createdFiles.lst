@@ -1,0 +1,13 @@
+com\kerio\keriofly\managers\FlyManager.class
+com\kerio\keriofly\database\DatabaseManager$PlayerData.class
+com\kerio\keriofly\managers\PointsManager.class
+com\kerio\keriofly\listeners\PlayerListener.class
+com\kerio\keriofly\KerioFly.class
+com\kerio\keriofly\managers\TicketManager$TicketData.class
+com\kerio\keriofly\database\DatabaseManager.class
+com\kerio\keriofly\economy\EconomyManager.class
+com\kerio\keriofly\utils\TicketUtils.class
+com\kerio\keriofly\commands\FlyCommand.class
+com\kerio\keriofly\placeholders\FlyPlaceholder.class
+com\kerio\keriofly\config\ConfigManager.class
+com\kerio\keriofly\managers\TicketManager.class

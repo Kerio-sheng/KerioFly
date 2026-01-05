@@ -1,0 +1,53 @@
+# 飛行票券設定
+# 使用 /kfly ticket create [name] [time] 創建新票券
+# 使用 /kfly ticket edit [name] 編輯票券樣式
+
+# 預設票券範本
+tickets:
+  # 票券名稱（內部ID）
+  default:
+    # 票券時間（秒）
+    time: 3600
+    # 票券材質
+    material: PAPER
+    # 票券顯示名稱（支援 &、§、&#RRGGBB 格式）
+    display-name: "&#00FFFF飛行票券 &7({time})"
+    # 票券描述
+    lore:
+      - "&7右鍵使用以獲得飛行時間"
+      - "&e飛行時間: &f{time}"
+      - ""
+      - "&#FFD700➤ 右鍵使用"
+    # 是否添加附魔效果
+    enchanted: true
+    # CustomModelData（0 = 不使用）
+    custom-model-data: 0
+    # 物品標籤（隱藏選項）
+    item-flags:
+      - HIDE_ENCHANTS
+      - HIDE_ATTRIBUTES
+  
+  # 範例：VIP票券
+  vip:
+    time: 86400
+    material: DIAMOND
+    display-name: "&#FFD700&lVIP飛行票券 &7({time})"
+    lore:
+      - "&#AAAAAA尊貴的VIP專屬票券"
+      - "&#00FF00飛行時間: &f{time}"
+      - ""
+      - "&#FFD700➤ 右鍵使用"
+    enchanted: true
+    custom-model-data: 0
+    item-flags:
+      - HIDE_ENCHANTS
+
+# GUI設定
+gui:
+  title: "&#00FFFF飛行票券管理"
+  size: 54
+  # 填充物品
+  filler:
+    enabled: true
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
