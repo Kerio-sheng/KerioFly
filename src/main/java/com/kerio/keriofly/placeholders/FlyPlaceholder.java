@@ -39,7 +39,7 @@ public class FlyPlaceholder extends PlaceholderExpansion {
     public String onPlaceholderRequest(Player player, String identifier) {
         if (player == null) return "";
         
-        // %keriofly_time% - 剩餘時間（格式化）
+        // %keriofly_time%
         if (identifier.equals("time")) {
             if (player.hasPermission("keriofly.unlimited")) {
                 return "無限";
@@ -48,7 +48,7 @@ public class FlyPlaceholder extends PlaceholderExpansion {
             return flyManager.formatTime(time);
         }
         
-        // %keriofly_time_seconds% - 剩餘秒數
+        // %keriofly_time_seconds%
         if (identifier.equals("time_seconds")) {
             if (player.hasPermission("keriofly.unlimited")) {
                 return "∞";
@@ -56,7 +56,7 @@ public class FlyPlaceholder extends PlaceholderExpansion {
             return String.valueOf(flyManager.getFlyTime(player.getUniqueId()));
         }
         
-        // %keriofly_time_minutes% - 剩餘分鐘數
+        // %keriofly_time_minutes%
         if (identifier.equals("time_minutes")) {
             if (player.hasPermission("keriofly.unlimited")) {
                 return "∞";
@@ -64,7 +64,7 @@ public class FlyPlaceholder extends PlaceholderExpansion {
             return String.valueOf(flyManager.getFlyTime(player.getUniqueId()) / 60);
         }
         
-        // %keriofly_time_hours% - 剩餘小時數
+        // %keriofly_time_hours%
         if (identifier.equals("time_hours")) {
             if (player.hasPermission("keriofly.unlimited")) {
                 return "∞";
@@ -72,7 +72,7 @@ public class FlyPlaceholder extends PlaceholderExpansion {
             return String.valueOf(flyManager.getFlyTime(player.getUniqueId()) / 3600);
         }
         
-        // %keriofly_time_days% - 剩餘天數
+        // %keriofly_time_days%
         if (identifier.equals("time_days")) {
             if (player.hasPermission("keriofly.unlimited")) {
                 return "∞";
@@ -80,37 +80,37 @@ public class FlyPlaceholder extends PlaceholderExpansion {
             return String.valueOf(flyManager.getFlyTime(player.getUniqueId()) / 86400);
         }
         
-        // %keriofly_use% - 是否開啟飛行
+        // %keriofly_use%
         if (identifier.equals("use")) {
             return flyManager.isFlyEnabled(player.getUniqueId()) ? "開啟" : "關閉";
         }
         
-        // %keriofly_use_boolean% - 是否開啟飛行（布林值）
+        // %keriofly_use_boolean%
         if (identifier.equals("use_boolean")) {
             return String.valueOf(flyManager.isFlyEnabled(player.getUniqueId()));
         }
         
-        // %keriofly_flying% - 是否正在飛行
+        // %keriofly_flying%
         if (identifier.equals("flying")) {
             return player.isFlying() ? "是" : "否";
         }
         
-        // %keriofly_flying_boolean% - 是否正在飛行（布林值）
+        // %keriofly_flying_boolean%
         if (identifier.equals("flying_boolean")) {
             return String.valueOf(player.isFlying());
         }
         
-        // %keriofly_unlimited% - 是否有無限飛行權限
+        // %keriofly_unlimited%
         if (identifier.equals("unlimited")) {
             return player.hasPermission("keriofly.unlimited") ? "是" : "否";
         }
         
-        // %keriofly_points% - 飛行點數
+        // %keriofly_points%
         if (identifier.equals("points")) {
             return String.valueOf(plugin.getPointsManager().getPoints(player.getUniqueId()));
         }
         
-        // %keriofly_points_time% - 點數可兌換的時間
+        // %keriofly_points_time%
         if (identifier.equals("points_time")) {
             long points = plugin.getPointsManager().getPoints(player.getUniqueId());
             return plugin.getPointsManager().getConvertibleTime(points);

@@ -22,7 +22,6 @@ public class TicketUtils {
     public static ItemStack createTicket(TicketManager.TicketData data) {
         KerioFly plugin = KerioFly.getInstance();
         
-        // 獲取材質
         Material material = Material.matchMaterial(data.getMaterial());
         if (material == null) material = Material.PAPER;
         
@@ -30,16 +29,13 @@ public class TicketUtils {
         ItemMeta meta = ticket.getItemMeta();
         
         if (meta != null) {
-            // 格式化時間
             String timeFormatted = plugin.getFlyManager().formatTime(data.getTime());
             
-            // 設置名稱
             String name = plugin.getConfigManager().colorize(
                 data.getDisplayName().replace("{time}", timeFormatted)
             );
             meta.setDisplayName(name);
             
-            // 設置描述
             List<String> finalLore = new ArrayList<>();
             for (String line : data.getLore()) {
                 finalLore.add(plugin.getConfigManager().colorize(
@@ -48,12 +44,10 @@ public class TicketUtils {
             }
             meta.setLore(finalLore);
             
-            // 添加附魔效果
             if (data.isEnchanted()) {
                 meta.addEnchant(Enchantment.LURE, 1, true);
             }
             
-            // 添加物品標籤
             if (data.getItemFlags() != null) {
                 for (String flagName : data.getItemFlags()) {
                     try {
@@ -63,12 +57,12 @@ public class TicketUtils {
                 }
             }
             
-            // 設置 CustomModelData
+            // CustomModelData
             if (data.getCustomModelData() > 0) {
                 meta.setCustomModelData(data.getCustomModelData());
             }
             
-            // 儲存時間數據和票券名稱
+            // 儲存
             meta.getPersistentDataContainer().set(TICKET_KEY, PersistentDataType.LONG, data.getTime());
             meta.getPersistentDataContainer().set(TICKET_NAME_KEY, PersistentDataType.STRING, data.getName());
             

@@ -26,33 +26,27 @@ public class KerioFly extends JavaPlugin {
     public void onEnable() {
         instance = this;
         
-        // 初始化配置
         configManager = new ConfigManager(this);
         configManager.loadConfigs();
         
-        // 初始化資料庫
         databaseManager = new DatabaseManager(this);
         databaseManager.connect();
         
-        // 初始化管理器
         flyManager = new FlyManager(this);
         ticketManager = new TicketManager(this);
         pointsManager = new PointsManager(this);
         economyManager = new EconomyManager(this);
         
-        // 註冊指令
         getCommand("kfly").setExecutor(new FlyCommand(this));
         
-        // 註冊監聽器
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         
-        // 註冊 PlaceholderAPI
+        // PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new FlyPlaceholder(this).register();
             getLogger().info("已掛鉤 PlaceholderAPI");
         }
         
-        // 啟動飛行時間消耗任務
         flyManager.startTimeConsumptionTask();
         
         getLogger().info("KerioFly 插件已啟動！");
@@ -61,7 +55,7 @@ public class KerioFly extends JavaPlugin {
     
     @Override
     public void onDisable() {
-        // 保存所有玩家數據
+        // 保存數據
         if (flyManager != null) {
             flyManager.saveAllPlayers();
             flyManager.stopTimeConsumptionTask();
@@ -71,7 +65,7 @@ public class KerioFly extends JavaPlugin {
             pointsManager.saveAllPoints();
         }
         
-        // 關閉資料庫連接
+        // 關閉資料庫
         if (databaseManager != null) {
             databaseManager.disconnect();
         }

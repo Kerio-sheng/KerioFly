@@ -28,7 +28,6 @@ public class PlayerListener implements Listener {
         flyManager.loadPlayerData(player);
         plugin.getPointsManager().loadPlayerPoints(player.getUniqueId());
         
-        // 如果玩家之前開啟飛行，重新啟用（除非設定自動關閉）
         if (flyManager.isFlyEnabled(player.getUniqueId())) {
             if (flyManager.getFlyTime(player.getUniqueId()) > 0 || player.hasPermission("keriofly.unlimited")) {
                 player.setAllowFlight(true);
@@ -59,7 +58,7 @@ public class PlayerListener implements Listener {
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null) return;
         
-        // 檢查是否為票券
+        // 檢查票券
         if (TicketUtils.isTicket(clicked)) {
             ItemStack ticket = clicked.clone();
             ticket.setAmount(1);
@@ -75,7 +74,6 @@ public class PlayerListener implements Listener {
         
         if (item == null) return;
         
-        // 檢查是否為飛行票券
         if (TicketUtils.isTicket(item)) {
             event.setCancelled(true);
             
@@ -85,7 +83,6 @@ public class PlayerListener implements Listener {
                 player.sendMessage(plugin.getConfigManager().getMessage("ticket-received")
                     .replace("{time}", flyManager.formatTime(time)));
                 
-                // 移除票券
                 item.setAmount(item.getAmount() - 1);
             }
         }
@@ -96,7 +93,7 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         boolean allowCreative = plugin.getConfigManager().getConfig().getBoolean("settings.allow-fly-in-creative", false);
         
-        // 創造模式時處理飛行
+        // 創造模式飛行
         if (event.getNewGameMode() == GameMode.CREATIVE) {
             if (!allowCreative && flyManager.isFlyEnabled(player.getUniqueId())) {
                 flyManager.setFlyEnabled(player, false);
@@ -108,12 +105,10 @@ public class PlayerListener implements Listener {
     public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
         Player player = event.getPlayer();
         
-        // 創造模式或觀察者模式不處理
         if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) {
             return;
         }
         
-        // 如果玩家沒有開啟飛行模式，阻止飛行
         if (!flyManager.isFlyEnabled(player.getUniqueId()) && !player.hasPermission("keriofly.unlimited")) {
             event.setCancelled(true);
             player.setAllowFlight(false);

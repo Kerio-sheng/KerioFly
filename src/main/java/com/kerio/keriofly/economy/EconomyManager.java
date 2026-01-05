@@ -77,9 +77,6 @@ public class EconomyManager {
         return economy.has(player, amount);
     }
     
-    /**
-     * 使用金錢購買飛行時間
-     */
     public boolean purchaseWithMoney(Player player, int hours) {
         if (!vaultEnabled || economy == null) return false;
         

@@ -62,10 +62,7 @@ public class PointsManager {
         return getPoints(uuid) >= points;
     }
     
-    /**
-     * 使用飛行點數購買飛行時間
-     * 1點 = 1小時
-     */
+    // 點數購買
     public boolean purchaseWithPoints(UUID uuid, int hours) {
         long pointsNeeded = hours;
         
@@ -78,9 +75,7 @@ public class PointsManager {
         return true;
     }
     
-    /**
-     * 將點數轉換為可兌換的飛行時間
-     */
+    // 點數轉換
     public String getConvertibleTime(long points) {
         return plugin.getFlyManager().formatTime(points * 3600);
     }

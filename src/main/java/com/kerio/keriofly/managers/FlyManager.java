@@ -33,7 +33,6 @@ public class FlyManager {
                 flyTime.put(uuid, data.getFlyTime());
                 flyEnabled.put(uuid, data.isFlyEnabled());
                 
-                // 檢查是否在登入時自動關閉飛行
                 boolean disableOnJoin = plugin.getConfigManager().getConfig()
                     .getBoolean("settings.disable-fly-on-join", false);
                 
@@ -48,7 +47,6 @@ public class FlyManager {
             }
         }
         
-        // 預設值
         flyTime.put(uuid, 0L);
         flyEnabled.put(uuid, false);
     }
@@ -178,19 +176,15 @@ public class FlyManager {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 UUID uuid = player.getUniqueId();
                 
-                // 無限飛行權限跳過
                 if (player.hasPermission("keriofly.unlimited")) continue;
                 
                 boolean shouldConsume = false;
                 
-                // 檢查是否應該扣除時間
                 if (isFlyEnabled(uuid)) {
-                    // 檢查未移動設定
                     if (!consumeWhenNotMoving && !hasPlayerMoved(player)) {
                         continue;
                     }
                     
-                    // 檢查未飛行設定
                     if (!consumeWhenNotFlying && !player.isFlying()) {
                         continue;
                     }
@@ -205,13 +199,11 @@ public class FlyManager {
                     if (time > 0) {
                         reduceFlyTime(uuid, interval);
                         
-                        // 時間用完時關閉飛行
                         if (getFlyTime(uuid) <= 0) {
                             setFlyEnabled(player, false);
                             player.sendMessage(plugin.getConfigManager().getMessage("no-time"));
                         }
                     } else {
-                        // 沒有時間時強制關閉飛行
                         if (player.isFlying() || player.getAllowFlight()) {
                             setFlyEnabled(player, false);
                             player.sendMessage(plugin.getConfigManager().getMessage("no-time"));

@@ -36,7 +36,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // /kfly - 切換飛行或顯示幫助
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
                 sendHelp(sender);
@@ -55,13 +54,13 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
 
         String subCommand = args[0].toLowerCase();
 
-        // /kfly help - 任何人都可以查看
+        // help
         if (subCommand.equals("help")) {
             sendHelp(sender);
             return true;
         }
 
-        // /kfly reload - 管理員專用
+        // reload
         if (subCommand.equals("reload")) {
             if (!sender.hasPermission("keriofly.admin")) {
                 sender.sendMessage(plugin.getConfigManager().getMessage("no-permission"));
@@ -74,7 +73,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // /kfly true/false - 普通玩家可用
+        // kfly true/false
         if (subCommand.equals("true") || subCommand.equals("false")) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage(plugin.getConfigManager().getMessage("usage"));
@@ -92,7 +91,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // /kfly buy <hours> - 普通玩家可用
+        // buy
         if (subCommand.equals("buy")) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage("§c只有玩家可以使用此指令！");
@@ -113,10 +112,9 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return handleBuyCommand(player, args[1]);
         }
 
-        // /kfly points - 查看自己的點數 (普通玩家) 或管理點數 (管理員)
+        // points
         if (subCommand.equals("points")) {
             if (args.length == 1) {
-                // 查看自己的點數 - 普通玩家可用
                 if (!(sender instanceof Player)) {
                     sender.sendMessage("§c只有玩家可以使用此指令！");
                     return true;
@@ -136,7 +134,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            // /kfly points add/set/reduce <player> <amount> - 管理員專用
+            // points add/set/reduce
             if (!sender.hasPermission("keriofly.admin")) {
                 sender.sendMessage(plugin.getConfigManager().getMessage("no-permission"));
                 return true;
@@ -150,7 +148,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return handlePointsCommand(sender, args);
         }
 
-        // /kfly config - 管理員專用
+        // config
         if (subCommand.equals("config")) {
             if (!sender.hasPermission("keriofly.admin")) {
                 sender.sendMessage(plugin.getConfigManager().getMessage("no-permission"));
@@ -165,7 +163,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return handleConfigCommand(sender, args);
         }
 
-        // /kfly add/set/reduce/reset <player> [time] - 管理員專用
+        // add/set/reduce/reset time
         if (Arrays.asList("add", "set", "reduce", "reset").contains(subCommand)) {
             if (!sender.hasPermission("keriofly.admin")) {
                 sender.sendMessage(plugin.getConfigManager().getMessage("no-permission"));
@@ -175,12 +173,12 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             return handleTimeCommand(sender, subCommand, args);
         }
 
-        // /kfly ticket - 根據子指令判斷權限
+        // ticket
         if (subCommand.equals("ticket")) {
             return handleTicketCommand(sender, args);
         }
 
-        // 未知指令
+        // none command
         sender.sendMessage(plugin.getConfigManager().getMessage("usage"));
         return true;
     }
@@ -194,7 +192,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            // 優先使用飛行點數
             if (economyManager.isPointsExchangeEnabled()) {
                 if (pointsManager.purchaseWithPoints(player.getUniqueId(), hours)) {
                     String time = flyManager.formatTime(hours * 3600L);
@@ -210,7 +207,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 }
             }
 
-            // 使用金錢購買
             if (economyManager.isMoneyExchangeEnabled()) {
                 if (!economyManager.isVaultEnabled()) {
                     player.sendMessage(plugin.getConfigManager().getMessage("vault-not-found"));
@@ -600,32 +596,26 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            // 普通玩家只能看到基本指令
             if (sender.hasPermission("keriofly.use")) {
                 completions.addAll(Arrays.asList("true", "false", "help"));
 
-                // 如果啟用了購買功能，顯示 buy
                 if (economyManager.isMoneyExchangeEnabled() || economyManager.isPointsExchangeEnabled()) {
                     completions.add("buy");
                 }
 
-                // 如果啟用了點數系統，顯示 points (查看自己的)
                 if (economyManager.isPointsExchangeEnabled()) {
                     completions.add("points");
                 }
             }
 
-            // 管理員可以看到所有指令
             if (sender.hasPermission("keriofly.admin")) {
                 completions.addAll(Arrays.asList("add", "set", "reduce", "reset", "config", "reload"));
 
-                // 確保 points 存在 (用於管理他人點數)
                 if (!completions.contains("points")) {
                     completions.add("points");
                 }
             }
 
-            // 票券相關權限
             if (sender.hasPermission("keriofly.admin") ||
                     sender.hasPermission("keriofly.ticket.give") ||
                     sender.hasPermission("keriofly.ticket.gui")) {
@@ -635,7 +625,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2) {
             switch (args[0].toLowerCase()) {
                 case "ticket":
-                    // 根據權限顯示不同的子指令
                     if (sender.hasPermission("keriofly.admin")) {
                         completions.addAll(Arrays.asList("create", "remove", "edit", "list"));
                     }
@@ -648,7 +637,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                     break;
 
                 case "points":
-                    // 管理員才能看到子指令
                     if (sender.hasPermission("keriofly.admin")) {
                         completions.addAll(Arrays.asList("add", "set", "reduce"));
                     }
@@ -686,7 +674,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                         && sender.hasPermission("keriofly.admin")) {
                     return new ArrayList<>(ticketManager.getTicketNames());
                 } else if (args[1].equalsIgnoreCase("create") && sender.hasPermission("keriofly.admin")) {
-                    return null; // 讓玩家自由輸入名稱
+                    return null;
                 }
             } else if (args[0].equalsIgnoreCase("points") && sender.hasPermission("keriofly.admin")) {
                 return Bukkit.getOnlinePlayers().stream()
@@ -718,7 +706,6 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        // 過濾並返回符合輸入的補全選項
         return completions.stream()
                 .filter(s -> s.toLowerCase().startsWith(args[args.length - 1].toLowerCase()))
                 .sorted()

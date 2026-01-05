@@ -120,7 +120,6 @@ public class TicketManager {
         
         Inventory inv = Bukkit.createInventory(null, size, title);
         
-        // 添加填充物
         if (config.getBoolean("gui.filler.enabled", true)) {
             String fillerMaterial = config.getString("gui.filler.material", "GRAY_STAINED_GLASS_PANE");
             String fillerName = plugin.getConfigManager().colorize(config.getString("gui.filler.name", " "));
@@ -140,7 +139,6 @@ public class TicketManager {
             }
         }
         
-        // 添加票券
         int slot = 10;
         for (String name : tickets.keySet()) {
             ItemStack ticket = createTicketItem(name);
@@ -178,7 +176,7 @@ public class TicketManager {
             this.itemFlags = itemFlags;
         }
         
-        // Getters and Setters
+        // Getters/Setters
         public String getName() { return name; }
         public long getTime() { return time; }
         public void setTime(long time) { this.time = time; }

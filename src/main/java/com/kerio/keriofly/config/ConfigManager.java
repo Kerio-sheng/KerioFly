@@ -26,18 +26,15 @@ public class ConfigManager {
     }
     
     public void loadConfigs() {
-        // 加載主配置
         plugin.saveDefaultConfig();
         config = plugin.getConfig();
         
-        // 創建 ticket.yml
         ticketFile = new File(plugin.getDataFolder(), "ticket.yml");
         if (!ticketFile.exists()) {
             plugin.saveResource("ticket.yml", false);
         }
         ticketConfig = YamlConfiguration.loadConfiguration(ticketFile);
         
-        // 創建 messages.yml
         messagesFile = new File(plugin.getDataFolder(), "messages.yml");
         if (!messagesFile.exists()) {
             plugin.saveResource("messages.yml", false);
@@ -48,7 +45,6 @@ public class ConfigManager {
     }
     
     private void setDefaults() {
-        // config.yml 預設值
         config.addDefault("database.enabled", true);
         config.addDefault("database.host", "localhost");
         config.addDefault("database.port", 3306);
@@ -64,13 +60,12 @@ public class ConfigManager {
         config.addDefault("settings.disable-fly-on-join", false);
         config.addDefault("settings.disable-fly-on-combat", true);
         config.addDefault("settings.disable-fly-on-damage", false);
-        config.addDefault("settings.allow-fly-in-creative", false);
+        config.addDefault("settings.allow-fly-in-creative", true);
         
         config.addDefault("economy.money-exchange.enabled", false);
         config.addDefault("economy.money-exchange.cost-per-hour", 1000.0);
         config.addDefault("economy.points-exchange.enabled", true);
         
-        // ticket.yml 預設值
         ticketConfig.addDefault("tickets.default.time", 3600);
         ticketConfig.addDefault("tickets.default.material", "PAPER");
         ticketConfig.addDefault("tickets.default.display-name", "&#00FFFF飛行票券 &7({time})");
@@ -137,13 +132,11 @@ public class ConfigManager {
         return colorize(message);
     }
     
-    /**
-     * 支援 &、§ 和 Hex 色碼 (&#RRGGBB)
-     */
+    // &、§、Hex 色碼
     public String colorize(String text) {
         if (text == null) return "";
         
-        // 處理 Hex 色碼 &#RRGGBB
+        // Hex
         Matcher matcher = HEX_PATTERN.matcher(text);
         StringBuffer buffer = new StringBuffer();
         
@@ -154,7 +147,6 @@ public class ConfigManager {
         }
         matcher.appendTail(buffer);
         
-        // 處理 & 色碼
         return buffer.toString().replace("&", "§");
     }
 }
